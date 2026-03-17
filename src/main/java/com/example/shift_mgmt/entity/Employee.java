@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Employee {
     String employeeName;
     String employeeJobTitle;
     double employeeTotalHours;
+    double salaryRate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -34,6 +36,16 @@ public class Employee {
     private List<Shift> employeeShifts = new ArrayList<>();
 
     public void addShift(Shift newShift){
+        LocalDateTime newStart = newShift.getStartDateTime();
+        LocalDateTime newEnd = newShift.getEndDateTime();
+        for (Shift shift : employeeShifts){
+            LocalDateTime existingStart = shift.getStartDateTime();
+            LocalDateTime exisitingEnd = shift.getEndDateTime();
+            if (newStart.isBefore(exisitingEnd) && existingStart.isBefore(newEnd)){
+                throw new RuntimeException("Shift overlap!");
+            }
+        }
         employeeShifts.add(newShift);
+        newShift.setEmployee(this);
     }
 }

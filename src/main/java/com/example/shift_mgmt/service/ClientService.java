@@ -7,5 +7,5 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public interface ClientService extends GenericService<Client, Long>{
-    void registerShift(Long clientId, LocalDate date, LocalTime start, LocalTime end);
+    void registerShift(Long clientId, Long shiftId);
 }

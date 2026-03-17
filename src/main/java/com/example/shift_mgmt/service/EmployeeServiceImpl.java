@@ -32,18 +32,11 @@ public class EmployeeServiceImpl extends GenericServiceImpl <Employee, Long> imp
         emp.addShift(shift);
     }
 
+
+
     @Override
-    public void markAsDone(Long empId, Long shiftID){
-        Employee emp = employeeRepository.findEmployeeByEmployeeId(empId);
-        Shift shift = shiftRepository.findShiftByShiftId(shiftID);
-
-        if (shift.getEmployee().getEmployeeId() == emp.getEmployeeId()){
-            shift.setStatus(ShiftStatus.COMPLETED);
-            long time = shift.getDuration();
-            emp.setEmployeeTotalHours(emp.getEmployeeTotalHours() + time);
-        }
-
-        shiftRepository.save(shift);
-        employeeRepository.save(emp);
+    public double calculateSalary(Long empID) {
+        Employee employee = employeeRepository.findEmployeeByEmployeeId(empID);
+        return employee.getSalaryRate() * employee.getEmployeeTotalHours();
     }
 }
