@@ -1,8 +1,10 @@
 package com.example.shift_mgmt.entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -13,14 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
-public class Client {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clientId;
+    private long employeeId;
 
-    private String clientName;
-    private double hourQuota = 50.00;
+    String employeeName;
+    String employeeJobTitle;
+    double employeeTotalHours;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -28,10 +30,10 @@ public class Client {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany (mappedBy = "client")
-    private List<Shift> clientShifts = new ArrayList<>();
+    @OneToMany(mappedBy = "employee")
+    private List<Shift> employeeShifts = new ArrayList<>();
 
     public void addShift(Shift newShift){
-        clientShifts.add(newShift);
+        employeeShifts.add(newShift);
     }
 }
