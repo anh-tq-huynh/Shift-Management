@@ -1,15 +1,18 @@
 package com.example.shift_mgmt.controller;
 
 import com.example.shift_mgmt.entity.Client;
+import com.example.shift_mgmt.entity.Company;
 import com.example.shift_mgmt.entity.Shift;
 import com.example.shift_mgmt.service.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -17,11 +20,26 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/clients/{shift_id}")
-    public ResponseEntity<List<Shift>> getShifts (@PathVariable Long shift_id){
-        Client client = clientService.findById(shift_id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Client> getClient(@PathVariable Long id){
+        return ResponseEntity.ok(clientService.findById(id));
+    }
+
+    @GetMapping("/{clientId}/shifts")
+    public ResponseEntity<List<Shift>> getShifts (@PathVariable Long clientId){
+        Client client = clientService.findById(clientId);
         return ResponseEntity.ok(client.getClientShifts());
     }
 
-    @PostMapping("/clients/{name}")
+    @GetMapping("/{clientId}/book/{shiftId}")
+    public ResponseEntity<Client> registerShift(@PathVariable long clientId,
+                                               @PathVariable long shiftId){
+        clientService.registerShift(clientId,shiftId);
+        return ResponseEntity.ok(clientService.findById(clientId));
+    }
+
+    @PostMapping
+    public Client createClient (@RequestBody Client client){
+        return ResponseEntity.status(201).body(clientService.save(client)).getBody();
+    }
 }

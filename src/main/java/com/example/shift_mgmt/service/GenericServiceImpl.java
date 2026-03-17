@@ -2,6 +2,7 @@ package com.example.shift_mgmt.service;
 
 import com.example.shift_mgmt.entity.Client;
 import com.example.shift_mgmt.entity.Employee;
+import com.example.shift_mgmt.entity.Shift;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;

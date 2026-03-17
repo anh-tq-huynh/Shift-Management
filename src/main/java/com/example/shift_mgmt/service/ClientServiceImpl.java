@@ -6,12 +6,15 @@ import com.example.shift_mgmt.repository.ClientRepository;
 import com.example.shift_mgmt.repository.CompanyRepository;
 import com.example.shift_mgmt.repository.ShiftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Service
 public class ClientServiceImpl extends GenericServiceImpl<Client,Long> implements ClientService{
 
     private final CompanyRepository companyRepository;
@@ -27,24 +30,10 @@ public class ClientServiceImpl extends GenericServiceImpl<Client,Long> implement
     }
 
     @Override
-    public void registerShift(Long clientId, LocalDate date, LocalTime start, LocalTime end){
-        Client cli = clientRepository.findClientByClientId(clientId);
-
-
-        LocalDateTime startTime = LocalDateTime.of(date,start);
-        LocalDateTime endTime = LocalDateTime.of(date, end);
-        Duration duration = Duration.between(startTime, endTime);
-
-        double durationInHour = duration.toMinutes() /60.0;
-        if (cli.getHourQuota() < durationInHour){
-            throw new RuntimeException("Client doesn't have enough hour quota");
-        }
-        else{
-            Shift newShift = new Shift();
-            newShift.setStartDateTime(startTime);
-            newShift.setEndDateTime(endTime);
-            newShift.setClient(cli);
-            cli.addShift(newShift);
-        }
+    public void registerShift(Long clientId, Long shiftId){
+        Client client = clientRepository.findClientByClientId(clientId);
+        Shift shift = shiftRepository.findShiftByShiftId(shiftId);
+        shift.setClient(client);
+        client.addShift(shift);
     }
 }

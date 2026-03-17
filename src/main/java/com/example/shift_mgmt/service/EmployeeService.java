@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public interface EmployeeService {
+public interface EmployeeService extends GenericService<Employee, Long> {
      void bookShift(Long empId, Long shiftID);
-     void markAsDone(Long empId, Long shiftID);
+     public double calculateSalary(Long empID);
+
 }
