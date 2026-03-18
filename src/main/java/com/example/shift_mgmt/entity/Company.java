@@ -26,11 +26,11 @@ public class Company {
     private String companyName;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Client> clients = new ArrayList<>();
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Employee> employees = new ArrayList<>();
 
     public void addClient(Client client){

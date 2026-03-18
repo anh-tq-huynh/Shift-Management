@@ -46,6 +46,8 @@ public class ShiftServiceImpl extends GenericServiceImpl<Shift, Long> implements
             Shift newShift = new Shift();
             newShift.setStartDateTime(startTime);
             newShift.setEndDateTime(endTime);
+            newShift.setEmployee(null);
+            newShift.setClient(cli);
             return newShift;
         }
     }

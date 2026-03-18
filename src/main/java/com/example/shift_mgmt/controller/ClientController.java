@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
@@ -40,6 +40,9 @@ public class ClientController {
 
     @PostMapping
     public Client createClient (@RequestBody Client client){
+        if(client.getHourQuota() == null){
+            client.setHourQuota(50.00);
+        }
         return ResponseEntity.status(201).body(clientService.save(client)).getBody();
     }
 }
