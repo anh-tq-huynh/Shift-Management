@@ -1,7 +1,6 @@
-# Shift Management Backend
-
+# Shift Management Backend 
+Note: README file is in progress
 A Spring Boot backend for managing companies, employees, clients, and shift‑related operations.  
-This project was built as part of a job application to demonstrate backend architecture, domain modeling, and REST API design for a system similar to real-world shift management platforms.
 
 ---
 
@@ -52,8 +51,3 @@ This project was built as part of a job application to demonstrate backend archi
 
 ---
 
-## 📡 API Documentation
-
-### **Companies**
-
-#### Get all companies
