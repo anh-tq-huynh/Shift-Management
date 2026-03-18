@@ -1,6 +1,6 @@
 # Shift Management Backend 
-Note: README file is in progress
-A Spring Boot backend for managing companies, employees, clients, and shift‑related operations.  
+<b>Note: README file is in progress. </b>
+- A Spring Boot backend for managing companies, employees, clients, and shift‑related operations.  
 
 ---
 
