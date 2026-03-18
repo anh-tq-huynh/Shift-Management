@@ -50,6 +50,7 @@ public class CompanyServiceImpl extends GenericServiceImpl<Company, Long> implem
         Company company = companyRepository.findCompaniesByCompanyId(companyId);
 
         company.hireEmployee(newEmployee);
+        newEmployee.setSalaryRate(12.0);
         companyRepository.save(company);
         employeeRepository.save(newEmployee);
     }

@@ -20,15 +20,15 @@ public class Client {
     private Long clientId;
 
     private String clientName;
-    private double hourQuota = 50.00;
+    private Double hourQuota = 50.00;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @ToString.Exclude
     @JsonIgnore
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany (mappedBy = "client")
+    @OneToMany (mappedBy = "client", fetch = FetchType.EAGER)
     private List<Shift> clientShifts = new ArrayList<>();
 
     public void addShift(Shift newShift){

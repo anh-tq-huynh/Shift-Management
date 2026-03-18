@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("api/employees")
 public class EmployeeController {
@@ -45,6 +45,9 @@ public class EmployeeController {
 
     @PostMapping
     public Employee createEmployee (@RequestBody Employee employee){
+        if (employee.getSalaryRate() == null){
+            employee.setSalaryRate(0.0);
+        }
         return ResponseEntity.status(201).body(employeeService.save(employee)).getBody();
     }
 

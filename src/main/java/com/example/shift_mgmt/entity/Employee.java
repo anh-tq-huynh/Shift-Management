@@ -19,20 +19,20 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long employeeId;
+    private Long employeeId;
 
     String employeeName;
     String employeeJobTitle;
-    double employeeTotalHours;
-    double salaryRate;
+    Double employeeTotalHours;
+    Double salaryRate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @ToString.Exclude
     @JsonIgnore
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
     private List<Shift> employeeShifts = new ArrayList<>();
 
     public void addShift(Shift newShift){

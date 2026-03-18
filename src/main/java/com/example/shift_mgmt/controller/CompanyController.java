@@ -5,11 +5,12 @@ import com.example.shift_mgmt.entity.Company;
 import com.example.shift_mgmt.entity.Employee;
 import com.example.shift_mgmt.service.CompanyService;
 import com.example.shift_mgmt.service.EmployeeService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/companies")
 public class CompanyController {
@@ -20,8 +21,14 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
+    @Transactional
     public ResponseEntity<Company> getCompany(@PathVariable Long id){
         return ResponseEntity.ok(companyService.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Company>> getAll(){
+        return ResponseEntity.ok(companyService.fetchAll());
     }
 
     @GetMapping("/{id}/employees") //Fetch all employees
